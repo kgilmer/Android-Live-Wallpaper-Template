@@ -1,4 +1,4 @@
-package com.example.livewallpaper;
+package com.example.livewallpaper.model;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -8,13 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 
-public class Scene implements OnSharedPreferenceChangeListener {
-
-    private static final int DEFAULT_OUTER_CIRCLE_COLOR = 0xff5e736d;
-    private static final int DEFAULT_CIRCLE_COLOR = 0xffa2bd3a;
-    private final Paint backgroundPaint;
-    private final Paint outerCirclePaint;
-    private final Paint circlePaint;
+public class Scene implements SceneModel {
 
     // animation specific variables
     private float outerCircleRadius;
@@ -28,25 +22,8 @@ public class Scene implements OnSharedPreferenceChangeListener {
 
     private float angle;
 
-    public Scene() {
-
-        backgroundPaint = new Paint();
-        backgroundPaint.setColor(0xff8aa8a0);
-
-        outerCirclePaint = new Paint();
-        outerCirclePaint.setAntiAlias(true);
-        outerCirclePaint.setColor(DEFAULT_OUTER_CIRCLE_COLOR);
-        outerCirclePaint.setStyle(Style.STROKE);
-        outerCirclePaint.setStrokeWidth(3.0f);
-
-        circlePaint = new Paint();
-        circlePaint.setAntiAlias(true);
-        circlePaint.setColor(DEFAULT_CIRCLE_COLOR);
-        circlePaint.setStyle(Style.FILL);
-
-    }
-
-    public synchronized void updateSize(int width, int height) {
+    @Override
+    public synchronized void onSurfaceChanged(int width, int height) {
 
         centerX = width / 2;
         centerY = height / 2;
@@ -60,6 +37,7 @@ public class Scene implements OnSharedPreferenceChangeListener {
 
     }
 
+    @Override
     public synchronized void update() {
 
         angle += 1.0f;
@@ -72,18 +50,7 @@ public class Scene implements OnSharedPreferenceChangeListener {
 
     }
 
-    public synchronized void draw(Canvas canvas) {
-
-        // clear the background
-        canvas.drawPaint(backgroundPaint);
-
-        // draw objects
-        canvas.drawCircle(centerX, centerY, outerCircleRadius, outerCirclePaint);
-        canvas.drawCircle(centerX, centerY, 5f, circlePaint);
-        canvas.drawCircle(circleX, circleY, circleRadius, circlePaint);
-
-    }
-
+    /*
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals("theme_color")) {
@@ -96,5 +63,35 @@ public class Scene implements OnSharedPreferenceChangeListener {
             }
         }
     }
+    */
 
+    @Override
+    public float outerCircleRadius() {
+        return outerCircleRadius;
+    }
+
+    @Override
+    public float getCenterX() {
+        return centerX;
+    }
+
+    @Override
+    public float getCenterY() {
+        return centerY;
+    }
+
+    @Override
+    public float circleY() {
+        return circleY;
+    }
+
+    @Override
+    public float circleX() {
+        return circleX;
+    }
+
+    @Override
+    public float circleRadius() {
+        return circleRadius;
+    }
 }

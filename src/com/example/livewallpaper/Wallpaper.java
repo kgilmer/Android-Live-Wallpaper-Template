@@ -1,5 +1,7 @@
 package com.example.livewallpaper;
 
+import com.example.livewallpaper.model.Scene;
+import com.example.livewallpaper.render.SimpleSceneRenderer;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.service.wallpaper.WallpaperService;
@@ -32,8 +34,10 @@ public class Wallpaper extends WallpaperService {
 
         private static final String TAG = "WallpaperEngine";
 
-        private AnimationThread animationThread;
+        private Thread animationThread;
         private Scene scene;
+
+        private WallpaperController controller;
 
         @Override
         public void onCreate(SurfaceHolder surfaceHolder) {
@@ -43,16 +47,19 @@ public class Wallpaper extends WallpaperService {
             
             // create the scene
             scene = new Scene();
-            
-            // load and register for updates to settings
-            SharedPreferences sharedPrefs = getSharedPreferences(WallpaperSettingsActivity.SETTINGS_KEY, 0);
-            sharedPrefs.registerOnSharedPreferenceChangeListener(scene);
-            // Required on creation to set values to selection
-            scene.onSharedPreferenceChanged(sharedPrefs, "theme_color");
 
             // start animation thread; thread starts paused
             // will run onVisibilityChanged
-            animationThread = new AnimationThread(surfaceHolder, scene);
+            controller = new WallpaperController(surfaceHolder, scene, new SimpleSceneRenderer(), null);
+            animationThread = new Thread(controller);
+            
+            // load and register for updates to settings
+            SharedPreferences sharedPrefs = getSharedPreferences(WallpaperSettingsActivity.SETTINGS_KEY, 0);
+            sharedPrefs.registerOnSharedPreferenceChangeListener(controller);
+            // Required on creation to set values to selection
+            controller.onSharedPreferenceChanged(sharedPrefs, "theme_color");
+
+            
             animationThread.start();
 
         }
@@ -61,7 +68,7 @@ public class Wallpaper extends WallpaperService {
         public void onDestroy() {
             Log.d(TAG, "onDestroy");
 
-            animationThread.stopThread();
+            controller.stopThread();
             joinThread(animationThread);
             animationThread = null;
 
@@ -72,9 +79,9 @@ public class Wallpaper extends WallpaperService {
         public void onVisibilityChanged(boolean visible) {
             Log.d(TAG, "onVisibilityChanged: " + (visible ? "visible" : "invisible"));
             if (visible) {
-                animationThread.resumeThread();
+                controller.resumeThread();
             } else {
-                animationThread.pauseThread();
+                controller.pauseThread();
             }
         }
 
@@ -83,7 +90,7 @@ public class Wallpaper extends WallpaperService {
             super.onSurfaceChanged(holder, format, width, height);
             Log.d(TAG, "onSurfaceChanged: width: " + width + ", height: " + height);
 
-            scene.updateSize(width, height);
+            scene.onSurfaceChanged(width, height);
 
         }
 
