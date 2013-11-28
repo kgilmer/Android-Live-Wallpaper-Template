@@ -4,9 +4,9 @@
 
 package com.example.livewallpaper.render;
 
+import android.graphics.Canvas;
 import com.example.livewallpaper.model.SceneModel;
 import com.example.livewallpaper.theme.WallpaperTheme;
-import android.graphics.Canvas;
 
 /**
  * 

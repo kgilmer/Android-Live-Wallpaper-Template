@@ -1,15 +1,16 @@
 package com.example.livewallpaper;
 
-import com.example.livewallpaper.model.SceneModel;
-import com.example.livewallpaper.render.SceneRenderer;
-import com.example.livewallpaper.theme.DefaultTheme;
-import com.example.livewallpaper.theme.PinkTheme;
-import com.example.livewallpaper.theme.WallpaperTheme;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.graphics.Canvas;
 import android.util.Log;
 import android.view.SurfaceHolder;
+import com.example.livewallpaper.model.SceneModel;
+import com.example.livewallpaper.render.SceneRenderer;
+import com.example.livewallpaper.theme.DefaultTheme;
+import com.example.livewallpaper.theme.PinkTheme;
+import com.example.livewallpaper.theme.WallpaperTheme;
+import com.example.livewallpaper.util.PreferenceHelper;
 
 public class WallpaperController implements Runnable, OnSharedPreferenceChangeListener {
 
@@ -126,12 +127,7 @@ public class WallpaperController implements Runnable, OnSharedPreferenceChangeLi
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals("theme_color")) {
-            if (sharedPreferences.getString(key, "Default").equals("Pink")) {
-                theme = new PinkTheme();
-            } else {
-                theme = new DefaultTheme();
-            }
+            theme = PreferenceHelper.getTheme(sharedPreferences.getString(key, "Default"));
         }
     }
-
 }

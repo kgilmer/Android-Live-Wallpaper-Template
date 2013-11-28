@@ -6,9 +6,6 @@ package com.example.livewallpaper.theme;
 
 import android.graphics.Paint;
 
-/**
- * 
- */
 public interface WallpaperTheme {
 
     /**
