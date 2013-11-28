@@ -1,5 +1,7 @@
 package com.example.livewallpaper;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.service.wallpaper.WallpaperService;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -38,10 +40,16 @@ public class Wallpaper extends WallpaperService {
             super.onCreate(surfaceHolder);
 
             Log.d(TAG, "onCreate");
-
+            
             // create the scene
             scene = new Scene();
             
+            // load and register for updates to settings
+            SharedPreferences sharedPrefs = getSharedPreferences(WallpaperSettingsActivity.SETTINGS_KEY, 0);
+            sharedPrefs.registerOnSharedPreferenceChangeListener(scene);
+            // Required on creation to set values to selection
+            scene.onSharedPreferenceChanged(sharedPrefs, "theme_color");
+
             // start animation thread; thread starts paused
             // will run onVisibilityChanged
             animationThread = new AnimationThread(surfaceHolder, scene);
@@ -89,7 +97,5 @@ public class Wallpaper extends WallpaperService {
                 }
             }
         }
-
     }
-
 }

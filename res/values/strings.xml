@@ -11,5 +11,13 @@
     <string name="btn_set_wallpaper">Set live wallpaper</string>
     
     <string name="toast_select_wallpaper">Choose &quot;My Live Wallpaper&quot; from the list to start the Live Wallpaper.</string>
+    <string name="theme_color_title">Colors</string>
+    <string name="theme_color_summary">Choose color theme of live wallpaper.</string>
 
+    <string-array name="theme_colors">
+        <item>Default</item> 
+		<item>Pink</item> 
+    </string-array>
+    
+    <string name="default_theme_color">Default</string>
 </resources>

@@ -1,14 +1,20 @@
 package com.example.livewallpaper;
 
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 
-public class Scene {
+public class Scene implements OnSharedPreferenceChangeListener {
 
-    private Paint backgroundPaint;
-    private Paint outerCirclePaint;
-    private Paint circlePaint;
+    private static final int DEFAULT_OUTER_CIRCLE_COLOR = 0xff5e736d;
+    private static final int DEFAULT_CIRCLE_COLOR = 0xffa2bd3a;
+    private final Paint backgroundPaint;
+    private final Paint outerCirclePaint;
+    private final Paint circlePaint;
 
     // animation specific variables
     private float outerCircleRadius;
@@ -29,13 +35,13 @@ public class Scene {
 
         outerCirclePaint = new Paint();
         outerCirclePaint.setAntiAlias(true);
-        outerCirclePaint.setColor(0xff5e736d);
+        outerCirclePaint.setColor(DEFAULT_OUTER_CIRCLE_COLOR);
         outerCirclePaint.setStyle(Style.STROKE);
         outerCirclePaint.setStrokeWidth(3.0f);
 
         circlePaint = new Paint();
         circlePaint.setAntiAlias(true);
-        circlePaint.setColor(0xffa2bd3a);
+        circlePaint.setColor(DEFAULT_CIRCLE_COLOR);
         circlePaint.setStyle(Style.FILL);
 
     }
@@ -76,6 +82,19 @@ public class Scene {
         canvas.drawCircle(centerX, centerY, 5f, circlePaint);
         canvas.drawCircle(circleX, circleY, circleRadius, circlePaint);
 
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals("theme_color")) {
+            if (sharedPreferences.getString(key, "Default").equals("Pink")) {
+                outerCirclePaint.setColor(Color.RED);
+                circlePaint.setColor(Color.MAGENTA);
+            } else {
+                outerCirclePaint.setColor(DEFAULT_OUTER_CIRCLE_COLOR);
+                circlePaint.setColor(DEFAULT_CIRCLE_COLOR);
+            }
+        }
     }
 
 }
