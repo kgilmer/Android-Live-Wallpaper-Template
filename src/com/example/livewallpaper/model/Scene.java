@@ -50,21 +50,6 @@ public class Scene implements SceneModel {
 
     }
 
-    /*
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals("theme_color")) {
-            if (sharedPreferences.getString(key, "Default").equals("Pink")) {
-                outerCirclePaint.setColor(Color.RED);
-                circlePaint.setColor(Color.MAGENTA);
-            } else {
-                outerCirclePaint.setColor(DEFAULT_OUTER_CIRCLE_COLOR);
-                circlePaint.setColor(DEFAULT_CIRCLE_COLOR);
-            }
-        }
-    }
-    */
-
     @Override
     public float outerCircleRadius() {
         return outerCircleRadius;
