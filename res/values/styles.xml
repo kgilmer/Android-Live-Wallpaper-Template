@@ -16,5 +16,16 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+    
+    <style name="SettingsPreferenceTheme" parent="android:Theme.Translucent">
+        <item name="android:preferenceStyle">@style/SettingsPreference</item>
+        <item name="android:windowBackground">@color/SemiTransparentBackground</item>
+    </style>
+
+    <style name="SettingsPreference">
+        <item name="android:layout">@layout/act_wallpaper_settings</item>
+    </style>
+
+    <color name="SemiTransparentBackground">#88000000</color>
 
 </resources>

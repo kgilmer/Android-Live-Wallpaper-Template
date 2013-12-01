@@ -50,12 +50,15 @@ public class Wallpaper extends WallpaperService {
             // load preferences
             SharedPreferences sharedPrefs = getSharedPreferences(WallpaperSettingsActivity.SETTINGS_KEY, 0);
             
+            // get user set theme or create a default one if first run
+            WallpaperTheme theme = WallpaperTheme.getTheme(sharedPrefs);
+                
             // create the scene with default theme
-            scene = new Scene(WallpaperTheme.getTheme(sharedPrefs));
+            scene = new Scene(theme);
 
             // start animation thread; thread starts paused
             // will run onVisibilityChanged
-            controller = new WallpaperController(surfaceHolder, scene, new FlatSceneRenderer(), null);
+            controller = new WallpaperController(surfaceHolder, scene, new FlatSceneRenderer(), theme);
             animationThread = new Thread(controller);
             
             // Register controller for updates to settings
@@ -80,7 +83,8 @@ public class Wallpaper extends WallpaperService {
             Log.d(TAG, "onVisibilityChanged: " + (visible ? "visible" : "invisible"));
             if (visible) {
                 controller.resumeThread();
-            } else {
+            } else if (!isPreview()) {
+                //Continue animation if in preview mode to let user see theme changes immediately.
                 controller.pauseThread();
             }
         }

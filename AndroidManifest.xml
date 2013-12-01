@@ -26,7 +26,8 @@
         <activity
             android:name=".WallpaperSettingsActivity"
             android:exported="true"
-            android:label="@string/pref_screen_title" >
+            android:label="@string/pref_screen_title" 
+            android:theme="@style/SettingsPreferenceTheme">
         </activity>
 
         <service
