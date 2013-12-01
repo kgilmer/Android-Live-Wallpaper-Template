@@ -11,8 +11,8 @@ import com.example.livewallpaper.theme.WallpaperTheme;
 /**
  * 
  */
-public interface SceneRenderer {
+public interface Renderer {
 
-    public abstract void draw(Scene scene, WallpaperTheme theme, Canvas canvas);
+    public abstract void render(Scene scene, WallpaperTheme theme, Canvas canvas);
 
 }

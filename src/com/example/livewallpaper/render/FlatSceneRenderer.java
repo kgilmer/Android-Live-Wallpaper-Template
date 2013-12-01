@@ -11,10 +11,10 @@ import com.example.livewallpaper.theme.WallpaperTheme;
 /**
  * 
  */
-public class FlatSceneRenderer implements SceneRenderer {
+public class FlatSceneRenderer implements Renderer {
 
     @Override
-    public void draw(Scene scene, WallpaperTheme theme, Canvas canvas) {
+    public void render(Scene scene, WallpaperTheme theme, Canvas canvas) {
 
         // clear the background
         canvas.drawPaint(theme.backgroundPaint());

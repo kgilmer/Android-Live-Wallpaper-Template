@@ -6,7 +6,7 @@ import android.graphics.Canvas;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import com.example.livewallpaper.model.Scene;
-import com.example.livewallpaper.render.SceneRenderer;
+import com.example.livewallpaper.render.Renderer;
 import com.example.livewallpaper.theme.WallpaperTheme;
 
 public class WallpaperController implements Runnable, OnSharedPreferenceChangeListener {
@@ -22,11 +22,11 @@ public class WallpaperController implements Runnable, OnSharedPreferenceChangeLi
     private final int timeFrame = 1000 / fps; // drawing time frame in milliseconds 1000 ms / fps
 
     private final SurfaceHolder surfaceHolder;
-    private final SceneRenderer sceneRenderer;
+    private final Renderer sceneRenderer;
     private final Scene scene;
     private WallpaperTheme theme;
 
-    WallpaperController(SurfaceHolder surfaceHolder, Scene sceneModel, SceneRenderer sceneRenderer, WallpaperTheme theme) {
+    WallpaperController(SurfaceHolder surfaceHolder, Scene sceneModel, Renderer sceneRenderer, WallpaperTheme theme) {
         this.surfaceHolder = surfaceHolder;
         this.scene = sceneModel;
         this.sceneRenderer = sceneRenderer;
@@ -57,7 +57,7 @@ public class WallpaperController implements Runnable, OnSharedPreferenceChangeLi
                 }
 
                 scene.update();
-                sceneRenderer.draw(scene, theme, canvas);
+                sceneRenderer.render(scene, theme, canvas);
 
             } catch (IllegalArgumentException e) {
                 Log.e(TAG, "Error during surfaceHolder.lockCanvas()", e);

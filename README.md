@@ -1,10 +1,13 @@
-Android Live Wallpaper Template
+Android Themed Live Wallpaper Template
 ===================================
 
-Basic live wallpaper template using Canvas and a separate drawing Thread.
+Live wallpaper template based on Chiral Code's template https://github.com/chiralcode/Android-Live-Wallpaper-Template.
 
-Check out my development blog for further details. http://chiralcode.com/blog/
-
+Changes:
+- Implement some example settings.
+- Refactor scene class into view from model components.
+- Provide a theming facility for user settings.
+- UI for transparent settings allowing users to see changes immediately.
 
 Terms of Use
 -------------
