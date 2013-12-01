@@ -11,13 +11,21 @@
     <string name="btn_set_wallpaper">Set live wallpaper</string>
     
     <string name="toast_select_wallpaper">Choose &quot;My Live Wallpaper&quot; from the list to start the Live Wallpaper.</string>
+    
     <string name="theme_color_title">Colors</string>
     <string name="theme_color_summary">Choose color theme of live wallpaper.</string>
-
+    <string name="default_theme_color">Default</string>
     <string-array name="theme_colors">
         <item>Default</item> 
 		<item>Pink</item> 
     </string-array>
+
+    <string name="theme_size_title">Circle Size</string>
+    <string name="theme_size_summary">Choose size of circle.</string>
+    <string name="default_theme_size">Small</string>
+    <string-array name="theme_sizes">
+        <item>Small</item> 
+		<item>Large</item> 
+    </string-array>
     
-    <string name="default_theme_color">Default</string>
 </resources>

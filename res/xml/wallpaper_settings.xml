@@ -9,4 +9,12 @@
             android:summary="@string/theme_color_summary"
             android:entries="@array/theme_colors"
             android:entryValues="@array/theme_colors" />
+    
+    <ListPreference
+            android:key="theme_size"
+            android:defaultValue="@string/default_theme_size"
+            android:title="@string/theme_size_title"
+            android:summary="@string/theme_size_summary"
+            android:entries="@array/theme_sizes"
+            android:entryValues="@array/theme_sizes" />
 </PreferenceScreen>

@@ -5,7 +5,7 @@
 package com.example.livewallpaper.render;
 
 import android.graphics.Canvas;
-import com.example.livewallpaper.model.SceneModel;
+import com.example.livewallpaper.model.Scene;
 import com.example.livewallpaper.theme.WallpaperTheme;
 
 /**
@@ -13,6 +13,6 @@ import com.example.livewallpaper.theme.WallpaperTheme;
  */
 public interface SceneRenderer {
 
-    public abstract void draw(SceneModel sceneModel, WallpaperTheme theme, Canvas canvas);
+    public abstract void draw(Scene scene, WallpaperTheme theme, Canvas canvas);
 
 }

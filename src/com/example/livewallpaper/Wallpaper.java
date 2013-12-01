@@ -1,7 +1,9 @@
 package com.example.livewallpaper;
 
 import com.example.livewallpaper.model.Scene;
-import com.example.livewallpaper.render.SimpleSceneRenderer;
+import com.example.livewallpaper.render.FlatSceneRenderer;
+import com.example.livewallpaper.theme.DefaultTheme;
+import com.example.livewallpaper.theme.WallpaperTheme;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.service.wallpaper.WallpaperService;
@@ -45,23 +47,21 @@ public class Wallpaper extends WallpaperService {
 
             Log.d(TAG, "onCreate");
             
-            // create the scene
-            scene = new Scene();
+            // load preferences
+            SharedPreferences sharedPrefs = getSharedPreferences(WallpaperSettingsActivity.SETTINGS_KEY, 0);
+            
+            // create the scene with default theme
+            scene = new Scene(WallpaperTheme.getTheme(sharedPrefs));
 
             // start animation thread; thread starts paused
             // will run onVisibilityChanged
-            controller = new WallpaperController(surfaceHolder, scene, new SimpleSceneRenderer(), null);
+            controller = new WallpaperController(surfaceHolder, scene, new FlatSceneRenderer(), null);
             animationThread = new Thread(controller);
             
-            // load and register for updates to settings
-            SharedPreferences sharedPrefs = getSharedPreferences(WallpaperSettingsActivity.SETTINGS_KEY, 0);
+            // Register controller for updates to settings
             sharedPrefs.registerOnSharedPreferenceChangeListener(controller);
-            // Required on creation to set values to selection
-            controller.onSharedPreferenceChanged(sharedPrefs, "theme_color");
-
             
             animationThread.start();
-
         }
 
         @Override

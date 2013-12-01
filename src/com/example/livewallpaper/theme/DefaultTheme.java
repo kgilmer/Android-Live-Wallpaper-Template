@@ -11,7 +11,7 @@ import android.graphics.Paint.Style;
 /**
  * 
  */
-public class DefaultTheme implements WallpaperTheme {
+public class DefaultTheme extends WallpaperTheme {
     private static final int DEFAULT_OUTER_CIRCLE_COLOR = 0xff5e736d;
     private static final int DEFAULT_CIRCLE_COLOR = 0xffa2bd3a;
 
@@ -19,8 +19,10 @@ public class DefaultTheme implements WallpaperTheme {
     private final Paint backgroundPaint;
     private final Paint circlePaint;
     private final Paint outerCirclePaint;
+    private final float circleSize;
 
-    public DefaultTheme() {
+    public DefaultTheme(float circleSize) {
+        this.circleSize = circleSize;
         backgroundPaint = new Paint();
         backgroundPaint().setColor(Color.YELLOW);
         
@@ -48,6 +50,10 @@ public class DefaultTheme implements WallpaperTheme {
     @Override
     public Paint outerCirclePaint() {
         return outerCirclePaint;
+    }
+    @Override
+    public float getCircleSize() {
+        return circleSize;
     }
 
 

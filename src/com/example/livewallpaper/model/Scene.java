@@ -1,16 +1,10 @@
 package com.example.livewallpaper.model;
 
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.content.res.Resources;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Paint.Style;
+import com.example.livewallpaper.theme.WallpaperTheme;
 
-public class Scene implements SceneModel {
 
-    // animation specific variables
+public class Scene {
+
     private float outerCircleRadius;
     private float circleRadius;
 
@@ -21,23 +15,44 @@ public class Scene implements SceneModel {
     private int circleY;
 
     private float angle;
+    private WallpaperTheme theme;
+    private int width;
+    private int height;
+    
+    public Scene(WallpaperTheme theme) {
+        this.theme = theme;
+    }
 
-    @Override
+    
     public synchronized void onSurfaceChanged(int width, int height) {
 
+        this.width = width;
+        this.height = height;
+        
+        adjustScene();
+    }
+
+    public synchronized void onThemeChanged(WallpaperTheme theme) {
+        this.theme = theme;
+        
+        adjustScene();
+    }
+    
+    /**
+     * 
+     */
+    private void adjustScene() {
         centerX = width / 2;
         centerY = height / 2;
 
         int size = (width < height) ? width : height;
 
         outerCircleRadius = size / 3;
-        circleRadius = outerCircleRadius * 0.2f;
+        circleRadius = outerCircleRadius * theme.getCircleSize();
 
         update();
-
     }
 
-    @Override
     public synchronized void update() {
 
         angle += 1.0f;
@@ -50,32 +65,32 @@ public class Scene implements SceneModel {
 
     }
 
-    @Override
+    
     public float outerCircleRadius() {
         return outerCircleRadius;
     }
 
-    @Override
+    
     public float getCenterX() {
         return centerX;
     }
 
-    @Override
+    
     public float getCenterY() {
         return centerY;
     }
 
-    @Override
+    
     public float circleY() {
         return circleY;
     }
 
-    @Override
+    
     public float circleX() {
         return circleX;
     }
 
-    @Override
+    
     public float circleRadius() {
         return circleRadius;
     }

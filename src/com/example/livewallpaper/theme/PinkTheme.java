@@ -11,14 +11,16 @@ import android.graphics.Paint.Style;
 /**
  * 
  */
-public class PinkTheme implements WallpaperTheme {
+public class PinkTheme extends WallpaperTheme {
 
     
     private final Paint backgroundPaint;
     private final Paint circlePaint;
     private final Paint outerCirclePaint;
+    private final float circleSize;
 
-    public PinkTheme() {
+    public PinkTheme(float circleSize) {
+        this.circleSize = circleSize;
         backgroundPaint = new Paint();
         backgroundPaint().setColor(Color.BLACK);
         
@@ -46,6 +48,10 @@ public class PinkTheme implements WallpaperTheme {
     @Override
     public Paint outerCirclePaint() {
         return outerCirclePaint;
+    }
+    @Override
+    public float getCircleSize() {
+        return circleSize;
     }
 
 }
